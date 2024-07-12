@@ -9,10 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
+            $table->integer('reply_id');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

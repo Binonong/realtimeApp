@@ -3,21 +3,26 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+use App\Models\Question;
+use App\Models\Category;
+use App\Models\User;
+use Faker\Generator as Faker;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Question>
- */
 class QuestionFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Question::class;
+
+    public function definition()
     {
+        $title = $this->faker->sentence();
         return [
-            //
+            'title' => $title,
+            'slug' => Str::slug($title),
+            'body' => $this->faker->text,
+            'category_id' => Category::all()->random()->id,
+            'user_id' => User::all()->random()
+            
         ];
     }
 }
